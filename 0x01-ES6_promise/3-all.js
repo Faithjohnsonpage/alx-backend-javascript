@@ -5,19 +5,15 @@ export default function handleProfileSignup() {
   let firstName;
   let lastName;
 
-  uploadPhoto()
-    .then((value) => {
-      body = value.body;
-      return createUser();
-    })
-    .then((value) => {
-      firstName = value.firstName;
-      lastName = value.lastName;
+  Promise.all([uploadPhoto(), createUser()])
+    .then(([photoResult, userResult]) => {
+      body = photoResult.body;
+      firstName = userResult.firstName;
+      lastName = userResult.lastName;
+
+      console.log(`${body} ${firstName} ${lastName}`);
     })
     .catch(() => {
       console.log('Signup system offline');
-    })
-    .finally(() => {
-      console.log(`${body} ${firstName} ${lastName}`);
     });
 }
