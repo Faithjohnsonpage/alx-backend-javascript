@@ -16,17 +16,17 @@ function countStudents(path) {
 
     for (const line of lines.slice(1)) { // Skip the first line (header)
       if (line.trim() === '') {
-        continue;
+        // Do nothing
+      } else {
+        count += 1;
       }
-      
-      count++;
 
       const fields = line.split(',');
       if (fields[3] === 'CS') {
-        countCS++;
+        countCS += 1;
         listCS.push(fields[0].trim());
       } else if (fields[3] === 'SWE') {
-        countSWE++;
+        countSWE += 1;
         listSWE.push(fields[0].trim());
       }
     }
