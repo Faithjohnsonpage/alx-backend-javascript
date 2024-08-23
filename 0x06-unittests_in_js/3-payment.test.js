@@ -13,4 +13,23 @@ describe('sendPaymentRequestToApi', () => {
 
     spy.restore();
   });
+
+  it('should call Utils.calculateNumber once', () => {
+    const UtilsSpy = sinon.spy(Utils, 'calculateNumber');
+
+    sendPaymentRequestToApi(100, 20);
+
+    expect(UtilsSpy.calledOnce).to.be.true;
+    UtilsSpy.restore();
+  });
+
+  it('should handle negative numbers correctly', () => {
+    const UtilsSpy = sinon.spy(Utils, 'calculateNumber');
+  
+    sendPaymentRequestToApi(-50, 30);
+  
+    expect(UtilsSpy.calledWith('SUM', -50, 30)).to.be.true;
+    expect(UtilsSpy.returnValues[0]).to.equal(-20);
+    UtilsSpy.restore();
+  });
 });
