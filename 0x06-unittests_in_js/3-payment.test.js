@@ -10,7 +10,7 @@ describe('sendPaymentRequestToApi', () => {
     sendPaymentRequestToApi(100, 20);
 
     expect(spy.calledOnceWithExactly('SUM', 100, 20)).to.be.true;
-
+    expect(spy.callCount).to.be.equal(1)
     spy.restore();
   });
 
